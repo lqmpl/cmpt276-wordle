@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
-  console.log("Hello world")
+  console.log("wor Hello")
   const grid = useRef(null); 
 
   // States representing grid
