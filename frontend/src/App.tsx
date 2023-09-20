@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
+<<<<<<< HEAD
+=======
+  console.log("Hello world")
+  console.log("Testing 123")
+>>>>>>> newStructure
   const grid = useRef(null); 
 
   // States representing grid
