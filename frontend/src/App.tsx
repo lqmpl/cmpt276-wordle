@@ -2,12 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
   const grid = useRef(null); 
+
+  // States representing grid
   const [ wordArray, setWordArray ] = useState<string[]>([]) 
   const [ emptyCells, setEmptyCells ] = useState<number[]>([]); 
+
+  // Simple states
   const [ letter , setLetter ] = useState(''); 
   const [ delOperation, setDelOperation ] = useState(false); 
+  const [ counter, setCounter ] = useState(1); 
 
-
+  // Detect keyboard, change input
   useEffect(()=>{
     function handleKeyPress(event: KeyboardEvent){
       function isLetter(character: string) {
@@ -15,6 +20,7 @@ function App() {
       }
       
       if (isLetter(event.key)){
+ 
         setLetter(event.key);
       }
       else{
@@ -23,7 +29,6 @@ function App() {
         }
       }
     }
-
     document.addEventListener('keydown', handleKeyPress)
 
     return () => {
@@ -31,13 +36,27 @@ function App() {
     }
   }, [])
 
+  // Processes letter change, updates wordArray
+
   useEffect(()=>{
     if (wordArray.length < 30 && letter !== ''){
+      console.log(wordArray);
       setWordArray([...wordArray, letter]); 
 
       setLetter('');
+
+      let counterClone = counter; 
+      setCounter(counterClone+=1); 
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [letter])
+
+  // Handle counter
+
+  useEffect(()=>{
+  }, [counter])
+
+  // Sets empty spaces for wordArray
 
   useEffect(()=>{
     let emptyArray: number[] = []
@@ -48,12 +67,18 @@ function App() {
     setEmptyCells(emptyArray); 
   }, [wordArray]) 
 
+  // Handle delete operation
+
   useEffect(()=>{
-    if (delOperation === true){
+    if (delOperation === true && wordArray.length > 0){
       setWordArray(wordArray.slice(0, -1)) 
 
-      setDelOperation(false);
+
+      let counterClone = counter; 
+      setCounter(counterClone-=1); 
     }
+    setDelOperation(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delOperation])
 
   return (
