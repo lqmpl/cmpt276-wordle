@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
+  console.log("Hello world")
   const grid = useRef(null); 
 
   // States representing grid
@@ -40,7 +41,6 @@ function App() {
 
   useEffect(()=>{
     if (wordArray.length < 30 && letter !== ''){
-      console.log(wordArray);
       setWordArray([...wordArray, letter]); 
 
       setLetter('');
@@ -99,9 +99,6 @@ function App() {
                   return <div key={index} className='border-2 flex items-center justify-center text-xl'></div>
                 })
               }
- 
-
-            
           </div>
       </div>
     </div>
