@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
   console.log("Hello world")
+  console.log("Testing 123")
   const grid = useRef(null); 
 
   // States representing grid
