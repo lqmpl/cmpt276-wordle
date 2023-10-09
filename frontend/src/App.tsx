@@ -32,15 +32,6 @@ function App() {
   const [arrayIndex, setArrayIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
 
-  // Tasks
-  // 1.) Put Comments 
-  // 2.) Change useState into useReducer for state regarding
-  // wordCheckResponse
-  // 3.) wordChecker hard coded into first row, need to fix
-
-  const [wordCheckResponseMessage, setWordCheckResponseMessage] = useState({ message: '' });
-  const [letterRowColors, setLetterRowColors] = useState<number[]>();
-
   function isLetter(character: string) {
     return /^[a-zA-Z]$/.test(character);
   }
@@ -106,8 +97,6 @@ function App() {
       } catch (error) {
         console.log(error);
       }
-
-      console.log("Ready to send request");
     }
   }
 
@@ -141,10 +130,10 @@ function App() {
 
   return (
     <>
-      <div className='w-full text-center'>Wordle Prototype 0</div>
+      <div className='w-full text-center h-11 flex items-center justify-center border-b-2 border-stone-300'>Wordle Iteration 1</div>
       <div className='w-full'>
-        <div className='w-1/2 mx-auto h-96 flex justify-center items-center'>
-          <div ref={grid} className='w-2/4 h-5/6 grid gap-4 grid-cols-5 grid-rows-6'>
+        <div className='mx-auto h-96 flex justify-center items-center'>
+          <div ref={grid} className='w-3/4 sm:w-1/2 md:w-1/3 xl:w-1/4 2xl:w-1/5 h-5/6 grid gap-1 grid-cols-5 grid-rows-6'>
             {
               words[0].map((val, index) => {
                 return <div key={index}
