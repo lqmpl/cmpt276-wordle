@@ -9,11 +9,11 @@ function Keyboard({keyClick} : KeyboardProps){
         ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Del']];
 
     return (
-    <div className="flex-1 flex flex-col justify-center gap-2 bg-slate-700">
+    <div className="flex-1 flex flex-col justify-center gap-2">
         {keys.map((row) => (
-            <div key={row[1]} className="flex justify-center gap-2">
+            <div key={row[1]} className="flex justify-center gap-1">
                 {row.map((letter) => (
-                    <button type="button" key={letter} className="min-w-[7%] p-1 rounded border-1  text-center uppercase bg-white hover:bg-slate-300 active:bg-slate-500" onClick={() => keyClick(letter)}>{letter}</button>
+                    <button type="button" key={letter} className="min-w-[8%] p-1 py-2 rounded border-1 text-center uppercase font-semibold bg-[rgb(219,219,219)] hover:bg-gray-400 active:bg-gray-500" onClick={() => keyClick(letter)}>{letter}</button>
                 ))}
             </div>
         ))}

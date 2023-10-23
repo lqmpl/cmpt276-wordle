@@ -136,12 +136,12 @@ function App() {
 
   return (
     <div className='h-screen flex flex-col justify-between'>
-      <header className='flex justify-center align-center p-1 bg-blue-200'>
+      <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
         <h1 className='text-xl'>Wordle</h1>
       </header>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'> 
-          <div ref={grid} className='w-[50vmin] min-w-[250px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
+          <div ref={grid} className='w-[50vh] min-w-[200px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
             {words.map( (word) => (
                 word.map((val, index) => (
                   <LetterGrid 
