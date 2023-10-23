@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import Keyboard from './components/Keyboard';
 
 interface wordCheckResponseInterface {
   message: string,
@@ -38,7 +39,12 @@ function App() {
 
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
+    console.log(event.key);
   }
+  // when clicking the onscreen keyboard
+  function keyClick(letter: string){{
+    letter === "Del" ? setLetter("Backspace") : setLetter(letter);
+  }}
 
   function handleBackspace() {
     let prevLetterIndex = letterIndex - 1;
@@ -186,9 +192,9 @@ function App() {
             }
           </div>
         </div>
-        <div className='bg-red-300 h-1/3'>
-            <p>keyboard here</p>
-        </div>
+        <Keyboard 
+          keyClick = {keyClick}
+        />
       </main>
     </div>
   );
