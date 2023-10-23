@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useReducer } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 
 interface wordCheckResponseInterface {
@@ -129,15 +129,17 @@ function App() {
   }, [letter])
 
   return (
-    <>
-      <div className='w-full text-center h-11 flex items-center justify-center border-b-2 border-stone-300'>Wordle Iteration 1</div>
-      <div className='w-full'>
-        <div className='mx-auto h-96 flex justify-center items-center'>
-          <div ref={grid} className='w-3/4 sm:w-1/2 md:w-1/3 xl:w-1/4 2xl:w-1/5 h-5/6 grid gap-1 grid-cols-5 grid-rows-6'>
+    <div className='h-screen flex flex-col justify-between'>
+      <header className='flex justify-center align-center p-1 bg-blue-200'>
+        <h1 className='text-lg'>Wordle</h1>
+      </header>
+      <main className='h-full flex flex-col'>
+        <div className='h-2/3 flex justify-center items-center'> 
+          <div ref={grid} className='h-auto w-[75vw] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
             {
               words[0].map((val, index) => {
                 return <div key={index}
-                  className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                  className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >
                   {val.letter}
                 </div>
@@ -146,7 +148,7 @@ function App() {
             {
               words[1].map((val, index) => {
                 return <div key={index}
-                  className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                  className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >
                   {val.letter}
                 </div>
@@ -154,7 +156,7 @@ function App() {
             }
             {
               words[2].map((val, index) => {
-                return <div key={index} className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >
                   {val.letter}
                 </div>
@@ -162,13 +164,13 @@ function App() {
             }
             {
               words[3].map((val, index) => {
-                return <div key={index} className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >{val.letter}</div>
               })
             }
             {
               words[4].map((val, index) => {
-                return <div key={index} className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >
                   {val.letter}
                 </div>
@@ -176,7 +178,7 @@ function App() {
             }
             {
               words[5].map((val, index) => {
-                return <div key={index} className={`flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
+                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
                 >
                   {val.letter}
                 </div>
@@ -184,8 +186,11 @@ function App() {
             }
           </div>
         </div>
-      </div>
-    </>
+        <div className='bg-red-300 h-1/3'>
+            <p>keyboard here</p>
+        </div>
+      </main>
+    </div>
   );
 }
 
