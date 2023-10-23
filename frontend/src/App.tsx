@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import Keyboard from './components/Keyboard';
+import LetterGrid from './components/LetterGrid';
 
 interface wordCheckResponseInterface {
   message: string,
@@ -39,12 +40,11 @@ function App() {
 
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
-    console.log(event.key);
   }
   // when clicking the onscreen keyboard
-  function keyClick(letter: string){{
+  function keyClick(letter: string){
     letter === "Del" ? setLetter("Backspace") : setLetter(letter);
-  }}
+  }
 
   function handleBackspace() {
     let prevLetterIndex = letterIndex - 1;
@@ -137,59 +137,20 @@ function App() {
   return (
     <div className='h-screen flex flex-col justify-between'>
       <header className='flex justify-center align-center p-1 bg-blue-200'>
-        <h1 className='text-lg'>Wordle</h1>
+        <h1 className='text-xl'>Wordle</h1>
       </header>
       <main className='h-full flex flex-col'>
-        <div className='h-2/3 flex justify-center items-center'> 
-          <div ref={grid} className='h-auto w-[75vw] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
-            {
-              words[0].map((val, index) => {
-                return <div key={index}
-                  className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >
-                  {val.letter}
-                </div>
-              })
-            }
-            {
-              words[1].map((val, index) => {
-                return <div key={index}
-                  className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >
-                  {val.letter}
-                </div>
-              })
-            }
-            {
-              words[2].map((val, index) => {
-                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >
-                  {val.letter}
-                </div>
-              })
-            }
-            {
-              words[3].map((val, index) => {
-                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >{val.letter}</div>
-              })
-            }
-            {
-              words[4].map((val, index) => {
-                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >
-                  {val.letter}
-                </div>
-              })
-            }
-            {
-              words[5].map((val, index) => {
-                return <div key={index} className={`aspect-square flex justify-center items-center border-2 ${val.value === 0 && 'bg-slate-50'} ${val.value === 1 && ' bg-yellow-400'} ${val.value === 2 && 'bg-green-400'}`}
-                >
-                  {val.letter}
-                </div>
-              })
-            }
+        <div className='flex-[2] flex justify-center items-center'> 
+          <div ref={grid} className='w-[50vmin] min-w-[250px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
+            {words.map( (word) => (
+                word.map((val, index) => (
+                  <LetterGrid 
+                    key = {index}
+                    letter = {val.letter}
+                    value = {val.value}
+                  />
+                ))
+            ) )}
           </div>
         </div>
         <Keyboard 

@@ -9,7 +9,7 @@ function Keyboard({keyClick} : KeyboardProps){
         ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Del']];
 
     return (
-    <div className="h-1/3 flex flex-col justify-center gap-2 bg-slate-700">
+    <div className="flex-1 flex flex-col justify-center gap-2 bg-slate-700">
         {keys.map((row) => (
             <div key={row[1]} className="flex justify-center gap-2">
                 {row.map((letter) => (
