@@ -13,7 +13,10 @@ function Keyboard({keyClick} : KeyboardProps){
         {keys.map((row) => (
             <div key={row[1]} className="flex justify-center gap-1">
                 {row.map((letter) => (
-                    <button type="button" key={letter} className="min-w-[8%] p-1 py-2 rounded border-1 text-center uppercase font-semibold bg-[rgb(219,219,219)] hover:bg-gray-400 active:bg-gray-500" onClick={() => keyClick(letter)}>{letter}</button>
+                    <button type="button" key={letter} className={`min-w-[8%] p-1 sm:py-2 rounded border-1 text-center uppercase font-semibold bg-[rgb(219,219,219)] hover:bg-gray-400 active:bg-gray-500 
+                    ${(letter === "Enter" || letter === "Del") && 'text-xs'}`} onClick={() => keyClick(letter)}>
+                        {letter}
+                    </button>
                 ))}
             </div>
         ))}
