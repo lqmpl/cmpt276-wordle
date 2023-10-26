@@ -71,10 +71,22 @@ function App() {
     return concatedStr;
   }
 
+  /*
+
+  ['A', 'P', 'P', 'L', 'E'], ArrayIndex = 0 
+  ['P', 'E', 'A', 'C', 'H'] ArrayIndex = 1 
+              ^
+              |
+            letterIndex = 2 
+
+  ArrayIndex describes location of current word
+  LetterIndex describes location of current letter in current word
+
+  */
+
   async function handleEnter() {
     if (letterIndex > 4) {
       let concatedStr = concatStringArr(words[arrayIndex]);
-      console.log(concatedStr)
 
       try {
         const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
