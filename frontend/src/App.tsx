@@ -7,7 +7,8 @@ interface wordCheckResponseInterface {
   message: string,
   value: number,
   found: boolean,
-  optionsArray: number[]
+  optionsArray: number[],
+  win: boolean
 }
 
 interface cellValueInterface {
@@ -42,7 +43,7 @@ function App() {
     setLetter(event.key);
   }
   // when clicking the onscreen keyboard
-  function keyClick(letter: string){
+  function keyClick(letter: string) {
     letter === "Del" ? setLetter("Backspace") : setLetter(letter);
   }
 
@@ -85,12 +86,15 @@ function App() {
   */
 
   async function handleEnter() {
-    if (letterIndex > 4) {
+    console.log("hey?")
+    if (letterIndex > 4 && arrayIndex < 6) {
       let concatedStr = concatStringArr(words[arrayIndex]);
 
       try {
         const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
         const jsonRes: wordCheckResponseInterface = await response.json();
+
+
 
         if (jsonRes.found) {
           let wordsCopy = [...words];
@@ -100,6 +104,16 @@ function App() {
           }
 
           setWords(wordsCopy);
+
+          if (jsonRes.win === true) {
+            setArrayIndex(6);
+
+            /*
+            You win component
+            */
+
+            return;
+          }
 
           let arrayIndexCopy = arrayIndex;
           arrayIndexCopy += 1;
@@ -125,7 +139,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (isLetter(letter) && letter !== '' && letterIndex <= 4) {
+    if (isLetter(letter) && letter !== '' && letterIndex <= 4 && arrayIndex < 6) {
       let prevWords = [...words]
       prevWords[arrayIndex][letterIndex].letter = letter;
       setWords(prevWords)
@@ -151,21 +165,21 @@ function App() {
         <h1 className='text-xl'>Wordle</h1>
       </header>
       <main className='h-full flex flex-col'>
-        <div className='flex-[2] flex justify-center items-center'> 
+        <div className='flex-[2] flex justify-center items-center'>
           <div ref={grid} className='w-[50vh] min-w-[200px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
-            {words.map( (word) => (
-                word.map((val, index) => (
-                  <LetterGrid 
-                    key = {index}
-                    letter = {val.letter}
-                    value = {val.value}
-                  />
-                ))
-            ) )}
+            {words.map((word) => (
+              word.map((val, index) => (
+                <LetterGrid
+                  key={index}
+                  letter={val.letter}
+                  value={val.value}
+                />
+              ))
+            ))}
           </div>
         </div>
-        <Keyboard 
-          keyClick = {keyClick}
+        <Keyboard
+          keyClick={keyClick}
         />
       </main>
     </div>
