@@ -82,6 +82,11 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                         optionsArray: optionsArray,
                         win: win
                     }),
+                    headers: {
+                        "Access-Control-Allow-Headers" : "Content-Type",
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                    },
                 };
             }
             else {
@@ -99,6 +104,11 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                 optionsArray: [], 
                 win: false
             }),
+            headers: {
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+            },
         };
     }
 };
