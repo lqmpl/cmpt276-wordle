@@ -71,7 +71,7 @@ function App() {
       console.log(concatedStr)
 
       try {
-        const response = await fetch(`http://localhost:4000/api/checkWord?word=${concatedStr}`);
+        const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
         const jsonRes: wordCheckResponseInterface = await response.json();
         console.log(jsonRes);
 
