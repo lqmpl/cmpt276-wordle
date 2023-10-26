@@ -2,6 +2,7 @@ Sam <br>
 Grace <br>
 Kaiheng <br>
 Jessie <br>
+Joseph <br>
 
 Frontend <br>
   -src/index.tsx -entry point of frontend <br>
