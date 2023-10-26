@@ -142,6 +142,7 @@ function App() {
       }
     }
     setLetter('')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [letter])
 
   return (
