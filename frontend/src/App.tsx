@@ -57,7 +57,7 @@ function App() {
 
   function handleBackspace() {
     let prevLetterIndex = letterIndex - 1;
-    if (prevLetterIndex >= 0) {
+    if (prevLetterIndex >= 0 && arrayIndex < 6) {
       let wordsCopy = [...words];
       let wordLineCopy = wordsCopy[arrayIndex];
 
@@ -132,7 +132,6 @@ function App() {
 
           if (jsonRes.win === true) {
             setArrayIndex(6);
-
             /*
             You win component
             */
