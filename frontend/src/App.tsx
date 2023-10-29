@@ -31,6 +31,14 @@ function App() {
 
   const [words, setWords] = useState<cellValueInterface[][]>(wordsArr);
 
+  const keyboardArr = new Map<string, number>();
+  ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", 
+  "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"].forEach(letter => (
+    keyboardArr.set(letter, 0)
+  ));
+
+  const [keyboardVals, setKeyboardVals] = useState<Map<string, number>>(keyboardArr);
+
   const [letter, setLetter] = useState<string>('');
   const [arrayIndex, setArrayIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
@@ -98,12 +106,29 @@ function App() {
 
         if (jsonRes.found) {
           let wordsCopy = [...words];
+          let newKVals = new Map(keyboardVals);
 
-          for (let i = 0; i < jsonRes.optionsArray.length; i++) {
+          for (let i in jsonRes.optionsArray) {
+
+            // if the letter's been checked & it's not in work, make val 3 (dark grey)
+            // could probably fix this in backend - couldn't get to work
+            if (jsonRes.optionsArray[i] === 0){
+              jsonRes.optionsArray[i] = 3;
+            }
+
             wordsCopy[arrayIndex][i].value = jsonRes.optionsArray[i];
+          
+            const curLetter = wordsCopy[arrayIndex][i].letter;
+
+            // if the letter val is already 2 (confirmed) or 3 (not present), colour shouldn't change
+            //  otherwise, change its corresponding key in the keyboard to match cur value
+            if (keyboardVals.get(curLetter)! < 2){
+              newKVals.set(curLetter, jsonRes.optionsArray[i]);
+            }
           }
 
           setWords(wordsCopy);
+          setKeyboardVals(newKVals);
 
           if (jsonRes.win === true) {
             setArrayIndex(6);
@@ -170,16 +195,17 @@ function App() {
             {words.map((word) => (
               word.map((val, index) => (
                 <LetterGrid
-                  key={index}
-                  letter={val.letter}
-                  value={val.value}
+                  key = {index}
+                  letter = {val.letter}
+                  value = {val.value}
                 />
               ))
             ))}
           </div>
         </div>
         <Keyboard
-          keyClick={keyClick}
+          keyboardVals = {keyboardVals}
+          keyClick = {keyClick}
         />
       </main>
     </div>
