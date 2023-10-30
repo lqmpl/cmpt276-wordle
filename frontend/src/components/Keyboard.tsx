@@ -18,12 +18,12 @@ function Keyboard({keyboardVals, keyClick} : KeyboardProps){
                 {row.map((letter) => (
                     <button type="button" key={letter} className={`min-w-[8%] p-1 sm:py-2 
                         rounded border-1 text-center uppercase font-semibold 
-                        bg-[rgb(219,219,219)] hover:bg-gray-400 active:bg-gray-500 
-                        ${keyboardVals.get(letter)===1 && 'bg-yellow-400 hover:bg-[rgb(255,170,121)] active:bg-orange-500'}
-                        ${keyboardVals.get(letter)===2 && 'bg-[rgb(100,209,67)] hover:bg-[rgb(78,146,57)] active:bg-[rgb(56,104,41)]'}
-                        ${keyboardVals.get(letter)===3 && 'bg-[rgb(97,95,95)] hover:bg-[rgb(80,76,76)] active:bg-[rgb(53,51,51)]'}
-                        ${keyboardVals.get(letter)!==0 && 'text-white'}
-                        ${(letter === "Enter" || letter === "Del") && 'text-xs text-black'}`} onClick={() => keyClick(letter)}>
+                        ${(!keyboardVals.get(letter) || keyboardVals.get(letter)===0) && 'bg-graylight hover:bg-gray-400 active:bg-gray-500' }
+                        ${keyboardVals.get(letter)===1 && 'bg-yellow-400 hover:bg-yellowmed active:bg-orange-500'}
+                        ${keyboardVals.get(letter)===2 && 'bg-greenlight hover:bg-greenmed active:bg-greendark'}
+                        ${keyboardVals.get(letter)===3 && 'bg-graydark hover:bg-graydarker active:bg-graydarkest'}
+                        ${keyboardVals.get(letter) && keyboardVals.get(letter)!==0 && 'text-white'}
+                        ${(letter === "Enter" || letter === "Del") && 'text-xs'}`} onClick={() => keyClick(letter)}>
                         {letter}
                     </button>
                 ))}
