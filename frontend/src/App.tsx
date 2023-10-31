@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import Keyboard from './components/Keyboard';
 import LetterGrid from './components/LetterGrid';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 interface wordCheckResponseInterface {
   message: string,
