@@ -186,11 +186,11 @@ function App() {
   return (
     <div className='h-screen flex flex-col justify-between'>
       <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
-        <h1 className='text-xl'>Wordle</h1>
+        <h1 className='text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3'>Wordle</h1>
       </header>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'>
-          <div ref={grid} className='w-[50vh] min-w-[200px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
+          <div ref={grid} className='w-[50vh] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
             {words.map((word) => (
               word.map((val, index) => (
                 <LetterGrid
@@ -202,10 +202,12 @@ function App() {
             ))}
           </div>
         </div>
-        <Keyboard
-          keyboardVals = {keyboardVals}
-          keyClick = {keyClick}
-        />
+        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
+          <Keyboard
+            keyboardVals = {keyboardVals}
+            keyClick = {keyClick}
+          />
+        </div>
       </main>
     </div>
   );
