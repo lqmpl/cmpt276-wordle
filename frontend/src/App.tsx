@@ -31,6 +31,14 @@ function App() {
 
   const [words, setWords] = useState<cellValueInterface[][]>(wordsArr);
 
+  const keyboardArr = new Map<string, number>();
+  ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", 
+  "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"].forEach(letter => (
+    keyboardArr.set(letter, 0)
+  ));
+
+  const [keyboardVals, setKeyboardVals] = useState<Map<string, number>>(keyboardArr);
+
   const [letter, setLetter] = useState<string>('');
   const [arrayIndex, setArrayIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
@@ -49,7 +57,7 @@ function App() {
 
   function handleBackspace() {
     let prevLetterIndex = letterIndex - 1;
-    if (prevLetterIndex >= 0) {
+    if (prevLetterIndex >= 0 && arrayIndex < 6) {
       let wordsCopy = [...words];
       let wordLineCopy = wordsCopy[arrayIndex];
 
@@ -98,16 +106,32 @@ function App() {
 
         if (jsonRes.found) {
           let wordsCopy = [...words];
+          let newKVals = new Map(keyboardVals);
 
-          for (let i = 0; i < jsonRes.optionsArray.length; i++) {
+          for (let i in jsonRes.optionsArray) {
+
+            // if the letter's been checked & it's not in work, make val 3 (dark grey)
+            // could probably fix this in backend - couldn't get to work
+            if (jsonRes.optionsArray[i] === 0){
+              jsonRes.optionsArray[i] = 3;
+            }
+
             wordsCopy[arrayIndex][i].value = jsonRes.optionsArray[i];
+          
+            const curLetter = wordsCopy[arrayIndex][i].letter;
+
+            // if the letter val is already 2 (confirmed) or 3 (not present), colour shouldn't change
+            //  otherwise, change its corresponding key in the keyboard to match cur value
+            if (keyboardVals.get(curLetter)! < 2){
+              newKVals.set(curLetter, jsonRes.optionsArray[i]);
+            }
           }
 
           setWords(wordsCopy);
+          setKeyboardVals(newKVals);
 
           if (jsonRes.win === true) {
             setArrayIndex(6);
-
             /*
             You win component
             */
@@ -162,25 +186,28 @@ function App() {
   return (
     <div className='h-screen flex flex-col justify-between'>
       <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
-        <h1 className='text-xl'>Wordle</h1>
+        <h1 className='text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3'>Wordle</h1>
       </header>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'>
-          <div ref={grid} className='w-[50vh] min-w-[200px] max-w-[500px] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
+          <div ref={grid} className='w-[50vh] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
             {words.map((word) => (
               word.map((val, index) => (
                 <LetterGrid
-                  key={index}
-                  letter={val.letter}
-                  value={val.value}
+                  key = {index}
+                  letter = {val.letter}
+                  value = {val.value}
                 />
               ))
             ))}
           </div>
         </div>
-        <Keyboard
-          keyClick={keyClick}
-        />
+        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
+          <Keyboard
+            keyboardVals = {keyboardVals}
+            keyClick = {keyClick}
+          />
+        </div>
       </main>
     </div>
   );
