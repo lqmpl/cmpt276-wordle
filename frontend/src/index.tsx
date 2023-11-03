@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Classic from './pages/Classic';
+import Timed from './pages/Timed';
 
 import {
   createBrowserRouter,
@@ -13,15 +15,23 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <App />,
   },
   {
     path: "/pages/Signup.tsx",
-    element: <Signup></Signup>,
+    element: <Signup />,
   },
   {
     path: "/pages/Login.tsx",
-    element: <Login></Login>,
+    element: <Login />,
+  },
+  {
+    path: "/pages/Classic.tsx",
+    element: <Classic />,
+  },
+  {
+    path: "/pages/Timed.tsx",
+    element: <Timed />,
   },
 ]);
 

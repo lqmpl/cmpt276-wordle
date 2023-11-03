@@ -1,9 +1,9 @@
+import Header from "../components/Header"
+
 export default function Signup(){
     return (
         <> 
-            <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
-            <h1 className='text-xl'>Wordle</h1>
-            </header>
+            <Header />
             <div className='max-w-4xl min-w-fit m-auto'>
                 <div className={'min-h-fit max-h-60 m-24 py-24 px-10 border-2 border-gray-300 rounded h-full flex flex-auto flex-col justify-center align-center font-sans'}>
                     <h1 className={'text-center text-4xl font-bold'} >Join us!</h1> <br></br><br></br><br></br><br></br>
