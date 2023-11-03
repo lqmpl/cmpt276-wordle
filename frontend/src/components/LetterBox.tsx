@@ -3,7 +3,7 @@ interface LGridProps {
     value: number;
   }
 
-function LetterGrid({letter, value} : LGridProps){
+function LetterBox({letter, value} : LGridProps){
     return (
         <div className={`aspect-square flex justify-center items-center 
             border-2 border-gray-300 uppercase text-xl sm:text-2xl md:text-3xl font-semibold 
@@ -15,4 +15,4 @@ function LetterGrid({letter, value} : LGridProps){
     )
 }
 
-export default LetterGrid
+export default LetterBox

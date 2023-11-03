@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import Header from './components/Header'
 import Keyboard from './components/Keyboard';
-import LetterGrid from './components/LetterGrid';
+import LetterBox from './components/LetterBox';
 
 interface wordCheckResponseInterface {
   message: string,
@@ -185,15 +186,14 @@ function App() {
 
   return (
     <div className='h-screen flex flex-col justify-between'>
-      <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
-        <h1 className='text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3'>Wordle</h1>
-      </header>
+      <Header />
+      <a href={'/pages/Signup.tsx'}>Signup</a>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'>
           <div ref={grid} className='w-[50vh] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
             {words.map((word) => (
               word.map((val, index) => (
-                <LetterGrid
+                <LetterBox
                   key = {index}
                   letter = {val.letter}
                   value = {val.value}

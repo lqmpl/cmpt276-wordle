@@ -1,5 +1,8 @@
 export default function Login(){
     return (
-        <>Login</>
+        <>
+            <h3>Login</h3>
+            <a href="/">Back to Home</a>
+        </>
     )
 }
