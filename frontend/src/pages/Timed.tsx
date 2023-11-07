@@ -1,52 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 
+import { wordCheckResponseInterface, cellValueInterface, wordsArr, keyboardArr } from '../logic/baseWordle';
+import { isLetter, concatStringArr } from '../logic/stringFunctions';
+
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
-import LetterBox from '../components/LetterBox';
-
-interface wordCheckResponseInterface {
-  message: string,
-  value: number,
-  found: boolean,
-  optionsArray: number[],
-  win: boolean
-}
-
-interface cellValueInterface {
-  letter: string,
-  value: number,
-
-}
+import WordsGrid from '../components/WordsGrid';
 
 export default function Timed() {
   const grid = useRef(null);
 
-  let wordsArr: cellValueInterface[][] = [
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-    [{ letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }, { letter: '', value: 0 }],
-  ]
-
   const [words, setWords] = useState<cellValueInterface[][]>(wordsArr);
-
-  const keyboardArr = new Map<string, number>();
-  ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", 
-  "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"].forEach(letter => (
-    keyboardArr.set(letter, 0)
-  ));
 
   const [keyboardVals, setKeyboardVals] = useState<Map<string, number>>(keyboardArr);
 
   const [letter, setLetter] = useState<string>('');
   const [arrayIndex, setArrayIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
-
-  function isLetter(character: string) {
-    return /^[a-zA-Z]$/.test(character);
-  }
 
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
@@ -71,28 +41,6 @@ export default function Timed() {
       setLetterIndex(prevLetterIndex);
     }
   }
-
-  function concatStringArr(arr: cellValueInterface[]) {
-    let concatedStr = '';
-    for (let i = 0; i < arr.length; i++) {
-      concatedStr = concatedStr + `${arr[i].letter}`
-    }
-
-    return concatedStr;
-  }
-
-  /*
-
-  ['A', 'P', 'P', 'L', 'E'], ArrayIndex = 0 
-  ['P', 'E', 'A', 'C', 'H'] ArrayIndex = 1 
-              ^
-              |
-            letterIndex = 2 
-
-  ArrayIndex describes location of current word
-  LetterIndex describes location of current letter in current word
-
-  */
 
   async function handleEnter() {
     console.log("hey?")
@@ -191,17 +139,10 @@ export default function Timed() {
       <a href={'/'} className='text-blue-500'>Back to Home</a>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'>
-          <div ref={grid} className='w-[50vh] grid grid-rows-6 grid-cols-5 gap-1 p-2'>
-            {words.map((word) => (
-              word.map((val, index) => (
-                <LetterBox
-                  key = {index}
-                  letter = {val.letter}
-                  value = {val.value}
-                />
-              ))
-            ))}
-          </div>
+          <WordsGrid
+            grid = {grid}
+            words = {words}
+          />
         </div>
         <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
           <Keyboard

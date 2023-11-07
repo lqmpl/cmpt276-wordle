@@ -5,7 +5,7 @@ interface KeyboardProps {
     keyClick: (letter: string) => void;
   }
 
-function Keyboard({keyboardVals, keyClick} : KeyboardProps){
+export default function Keyboard({keyboardVals, keyClick} : KeyboardProps){
     const keys:string[][] = [
         ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
@@ -35,5 +35,3 @@ function Keyboard({keyboardVals, keyClick} : KeyboardProps){
     </>
     )
 }
-
-export default Keyboard;
