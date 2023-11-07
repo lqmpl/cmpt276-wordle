@@ -6,6 +6,8 @@ import { isLetter, concatStringArr } from '../logic/stringFunctions';
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
 import WordsGrid from '../components/WordsGrid';
+import Timer from '../components/Timer';
+import GameOver from '../components/GameOver';
 
 export default function Timed() {
   const grid = useRef(null);
@@ -18,9 +20,13 @@ export default function Timed() {
   const [arrayIndex, setArrayIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
 
+  const [gameStatus, setGameStatus] = useState("ready");
+  const [secs, setSecs] = useState(0);
+
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
   }
+  
   // when clicking the onscreen keyboard
   function keyClick(letter: string) {
     letter === "Del" ? setLetter("Backspace") : setLetter(letter);
@@ -103,6 +109,10 @@ export default function Timed() {
     }
   }
 
+  function restartGame(){
+    setGameStatus("ready");
+  }
+
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown)
 
@@ -119,6 +129,10 @@ export default function Timed() {
       let prevIndex = letterIndex
       prevIndex += 1;
       setLetterIndex(prevIndex)
+
+      if (gameStatus === "ready"){
+        setGameStatus("start");
+      }
     }
     else {
       if (letter === 'Backspace') {
@@ -132,16 +146,44 @@ export default function Timed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [letter])
 
+  // Countdown Timer Logic
+
+  useEffect(() => {
+    if (gameStatus === "ready"){
+      setSecs(15);
+    } else if (gameStatus === "start"){
+      setGameStatus("running");
+    }
+  }, [gameStatus]);
+
+  useEffect(() => {
+    if (secs <= 0 && gameStatus === "running"){
+      setGameStatus("over");
+    }
+    if (gameStatus === "running"){
+      const interval = setInterval(() => {
+        setSecs(secs - 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+      } 
+    
+  }, [secs, gameStatus]);
+
   return (
     <div className='h-screen flex flex-col justify-between'>
       <Header />
-      <h3>TIMED MODE - WIP</h3>
-      <a href={'/'} className='text-blue-500'>Back to Home</a>
       <main className='h-full flex flex-col'>
-        <div className='flex-[2] flex justify-center items-center'>
+        <div className='flex justify-center items-center'>
+          <Timer 
+            secs = {secs}
+          />
+        </div>
+        <div className='flex-[2] flex justify-center items-center '>
           <WordsGrid
             grid = {grid}
             words = {words}
+            smaller = {true}
           />
         </div>
         <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
@@ -150,6 +192,9 @@ export default function Timed() {
             keyClick = {keyClick}
           />
         </div>
+        {gameStatus === "over" && <GameOver 
+            restartGame = {restartGame}
+          />}
       </main>
     </div>
   );
