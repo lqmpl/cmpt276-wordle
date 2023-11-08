@@ -18,19 +18,19 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/pages/Signup.tsx",
+    path: "/sign-up",
     element: <Signup />,
   },
   {
-    path: "/pages/Login.tsx",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/pages/Classic.tsx",
+    path: "/classic",
     element: <Classic />,
   },
   {
-    path: "/pages/Timed.tsx",
+    path: "/timed",
     element: <Timed />,
   },
 ]);
