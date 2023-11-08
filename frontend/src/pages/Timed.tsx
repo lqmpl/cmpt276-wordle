@@ -49,7 +49,6 @@ export default function Timed() {
   }
 
   async function handleEnter() {
-    console.log("hey?")
     if (letterIndex > 4 && arrayIndex < 6) {
       let concatedStr = concatStringArr(words[arrayIndex]);
 
@@ -65,7 +64,7 @@ export default function Timed() {
 
           for (let i in jsonRes.optionsArray) {
 
-            // if the letter's been checked & it's not in work, make val 3 (dark grey)
+            // if the letter's been checked & it's not in word, make val 3 (dark grey)
             // could probably fix this in backend - couldn't get to work
             if (jsonRes.optionsArray[i] === 0){
               jsonRes.optionsArray[i] = 3;
@@ -166,7 +165,7 @@ export default function Timed() {
       }, 1000);
 
       return () => clearInterval(interval);
-      } 
+    } 
     
   }, [secs, gameStatus]);
 
