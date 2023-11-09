@@ -132,8 +132,6 @@ export default function Timed() {
   }, [])
 
   useEffect(() => {
-
-    //console.log(wordsArr);
     if (gameStatus !== "over"){      
       if (isLetter(letter) && letter !== '' && letterIndex <= 4 && arrayIndex < 6) {
 
