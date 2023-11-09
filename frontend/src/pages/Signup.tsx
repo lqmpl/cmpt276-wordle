@@ -13,9 +13,9 @@ export default function Signup(){
                     <input className={'h-8 border rounded border-gray-500'}type="text" id="signupPassword"/> <br></br>
                     <button className={'h-10 border rounded border-black bg-black text-white'} type="button">Sign Up</button><br></br>
                     <label className={'text-center text-[18px]'}>Already a member?    
+
                         <a href="/pages/Login.tsx" className='text-blue-500'> Login!</a>
                     </label>
-
                 </div>
             </div>
         </>
