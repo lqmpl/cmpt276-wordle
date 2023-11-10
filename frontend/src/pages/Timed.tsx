@@ -7,21 +7,25 @@ import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
 import WordsGrid from '../components/WordsGrid';
 import Timer from '../components/Timer';
+import ScoreDisplay from '../components/ScoreDisplay';
 import GameOver from '../components/GameOver';
 
 export default function Timed() {
   const grid = useRef(null);
 
-  const [words, setWords] = useState<cellValueInterface[][]>(wordsArr);
+  const [words, setWords] = useState<cellValueInterface[][]>(structuredClone(wordsArr));
 
   const [keyboardVals, setKeyboardVals] = useState<Map<string, number>>(keyboardArr);
 
   const [letter, setLetter] = useState<string>('');
-  const [arrayIndex, setArrayIndex] = useState(0);
-  const [letterIndex, setLetterIndex] = useState(0);
+  const [arrayIndex, setArrayIndex] = useState<number>(0);
+  const [letterIndex, setLetterIndex] = useState<number>(0);
 
-  const [gameStatus, setGameStatus] = useState("ready");
-  const [secs, setSecs] = useState(0);
+  // states are "ready". "running", & "over"
+  const [gameStatus, setGameStatus] = useState<string>("ready");
+  const [secs, setSecs] = useState<number>(0);
+
+  const [score, setScore] = useState<number>(0);
 
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
@@ -39,7 +43,7 @@ export default function Timed() {
       let wordLineCopy = wordsCopy[arrayIndex];
 
 
-      wordLineCopy[prevLetterIndex]['letter'] = ''
+      wordLineCopy[prevLetterIndex]['letter'] = '';
       wordsCopy[arrayIndex] = wordLineCopy;
 
       setWords(wordsCopy);
@@ -49,15 +53,12 @@ export default function Timed() {
   }
 
   async function handleEnter() {
-    console.log("hey?")
     if (letterIndex > 4 && arrayIndex < 6) {
       let concatedStr = concatStringArr(words[arrayIndex]);
 
       try {
         const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
         const jsonRes: wordCheckResponseInterface = await response.json();
-
-
 
         if (jsonRes.found) {
           let wordsCopy = [...words];
@@ -87,9 +88,7 @@ export default function Timed() {
 
           if (jsonRes.win === true) {
             setArrayIndex(6);
-            /*
-            You win component
-            */
+            setScore(score + (6 - arrayIndex));
 
             return;
           }
@@ -110,7 +109,18 @@ export default function Timed() {
   }
 
   function restartGame(){
+    resetWord();
     setGameStatus("ready");
+  }
+
+  // clears the grid & keyboard
+  function resetWord(){
+    setWords(structuredClone(wordsArr));
+    setLetter('');
+    setArrayIndex(0);
+    setLetterIndex(0);
+    setKeyboardVals(keyboardArr);
+    setScore(0);
   }
 
   useEffect(() => {
@@ -122,26 +132,28 @@ export default function Timed() {
   }, [])
 
   useEffect(() => {
-    if (isLetter(letter) && letter !== '' && letterIndex <= 4 && arrayIndex < 6) {
-      let prevWords = [...words]
-      prevWords[arrayIndex][letterIndex].letter = letter;
-      setWords(prevWords)
-      let prevIndex = letterIndex
-      prevIndex += 1;
-      setLetterIndex(prevIndex)
+    if (gameStatus !== "over"){      
+      if (isLetter(letter) && letter !== '' && letterIndex <= 4 && arrayIndex < 6) {
 
-      if (gameStatus === "ready"){
-        setGameStatus("start");
-      }
-    }
-    else {
-      if (letter === 'Backspace') {
+        if (gameStatus === "ready"){
+          setGameStatus("running");
+        }
+
+        let prevWords = [...words]
+        prevWords[arrayIndex][letterIndex].letter = letter;
+        setWords(prevWords)
+        let prevIndex = letterIndex
+        prevIndex += 1;
+        setLetterIndex(prevIndex)
+
+      } else if (letter === 'Backspace') {
         handleBackspace();
-      }
-      else if (letter === 'Enter') {
+
+      } else if (letter === 'Enter') {
         handleEnter();
       }
     }
+    
     setLetter('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [letter])
@@ -151,8 +163,6 @@ export default function Timed() {
   useEffect(() => {
     if (gameStatus === "ready"){
       setSecs(15);
-    } else if (gameStatus === "start"){
-      setGameStatus("running");
     }
   }, [gameStatus]);
 
@@ -174,19 +184,33 @@ export default function Timed() {
     <div className='h-screen flex flex-col justify-between'>
       <Header />
       <main className='h-full flex flex-col'>
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center gap-4 md:hidden'>
           <Timer 
             secs = {secs}
           />
-        </div>
-        <div className='flex-[2] flex justify-center items-center '>
-          <WordsGrid
-            grid = {grid}
-            words = {words}
-            smaller = {true}
+          <ScoreDisplay 
+            score = {score}
           />
         </div>
-        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
+        <div className='flex-[2] flex justify-center items-center md:p-1 lg:p-2 2xl:p-4'>
+          <div className='flex-1 hidden md:inline'></div>
+          <div className=''>
+            <WordsGrid
+              grid = {grid}
+              words = {words}
+              smaller = {true}
+            />
+          </div>
+          <div className="flex-1 hidden md:flex flex-col items-center md:gap-4 lg:gap-8 2xl:gap-14 relative right-[5vw]">
+            <Timer 
+              secs = {secs}
+            />
+            <ScoreDisplay 
+              score = {score}
+            />
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-2 md:pb-4 lg:pb-8 2xl:pb-12">
           <Keyboard
             keyboardVals = {keyboardVals}
             keyClick = {keyClick}
@@ -194,6 +218,7 @@ export default function Timed() {
         </div>
         {gameStatus === "over" && <GameOver 
             restartGame = {restartGame}
+            score = {score}
           />}
       </main>
     </div>
