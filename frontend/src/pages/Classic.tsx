@@ -1,7 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { wordCheckResponseInterface, cellValueInterface, wordsArr, keyboardArr } from '../logic/baseWordle';
 import { isLetter, concatStringArr } from '../logic/stringFunctions';
+
+import { GlobalContext } from '../globalState';
 
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
@@ -56,15 +59,12 @@ export default function Classic() {
   */
 
   async function handleEnter() {
-    console.log("hey?")
     if (letterIndex > 4 && arrayIndex < 6) {
       let concatedStr = concatStringArr(words[arrayIndex]);
 
       try {
         const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
         const jsonRes: wordCheckResponseInterface = await response.json();
-
-
 
         if (jsonRes.found) {
           let wordsCopy = [...words];
@@ -146,9 +146,8 @@ export default function Classic() {
   }, [letter])
 
   return (
-    <div className='h-screen flex flex-col justify-between'>
-      <Header />
-      <a href={'/'} className='text-blue-500'>Back to Home</a>
+    <div className='h-screen flex flex-col justify-between gap-1'>
+      <Header pageType={'classic'}/>
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center'>
           <WordsGrid
