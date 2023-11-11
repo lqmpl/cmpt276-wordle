@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import Keyboard from './components/Keyboard';
 import LetterGrid from './components/LetterGrid';
+import { NavBar } from './components/NavBar';
 
 interface wordCheckResponseInterface {
   message: string,
@@ -184,7 +185,9 @@ function App() {
   }, [letter])
 
   return (
+    
     <div className='h-screen flex flex-col justify-between'>
+      <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
       <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
         <h1 className='text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3'>Wordle</h1>
       </header>
