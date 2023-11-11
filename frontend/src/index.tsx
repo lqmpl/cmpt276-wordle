@@ -42,4 +42,3 @@ root.render(
       </GlobalStateProvider>
     </>
 );
-

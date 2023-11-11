@@ -9,6 +9,7 @@ import WordsGrid from '../components/WordsGrid';
 import Timer from '../components/Timer';
 import ScoreDisplay from '../components/ScoreDisplay';
 import GameOver from '../components/GameOver';
+import { NavBar } from '../components/NavBar';
 
 export default function Timed() {
   const grid = useRef(null);
@@ -182,7 +183,9 @@ export default function Timed() {
 
   return (
     <div className='h-screen flex flex-col justify-between'>
+      <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
       <Header pageType={'timed'} />
+
       <main className='h-full flex flex-col'>
         <div className='flex justify-center items-center gap-4 md:hidden'>
           <Timer 

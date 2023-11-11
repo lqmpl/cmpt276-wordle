@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header"
+import { NavBar } from "../components/NavBar"
 
 export default function Signup(){
     const navigate = useNavigate()
-
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState(''); 
 

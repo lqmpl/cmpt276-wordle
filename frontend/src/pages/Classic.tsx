@@ -10,6 +10,7 @@ import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
 import WordsGrid from '../components/WordsGrid';
 import GameOver from '../components/GameOver';
+import { NavBar } from '../components/NavBar';
 
 export default function Classic() {
   const grid = useRef(null);
@@ -163,6 +164,8 @@ export default function Classic() {
   return (
     <div className='h-screen flex flex-col justify-between gap-1'>
       <Header pageType={'classic'}/>
+      <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+
       <main className='h-full flex flex-col'>
         <div className='flex-[2] flex justify-center items-center md:p-1 lg:p-2 2xl:p-4'>
           <WordsGrid
