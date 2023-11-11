@@ -9,17 +9,21 @@ import { GlobalContext } from '../globalState';
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
 import WordsGrid from '../components/WordsGrid';
+import GameOver from '../components/GameOver';
 
 export default function Classic() {
   const grid = useRef(null);
 
-  const [words, setWords] = useState<cellValueInterface[][]>(wordsArr);
+  const [words, setWords] = useState<cellValueInterface[][]>(structuredClone(wordsArr));
 
   const [keyboardVals, setKeyboardVals] = useState<Map<string, number>>(keyboardArr);
 
   const [letter, setLetter] = useState<string>('');
-  const [arrayIndex, setArrayIndex] = useState(0);
-  const [letterIndex, setLetterIndex] = useState(0);
+  const [arrayIndex, setArrayIndex] = useState<number>(0);
+  const [letterIndex, setLetterIndex] = useState<number>(0);
+
+  // states are "running", "victory", & "lost"
+  const [gameStatus, setGameStatus] = useState<string>("running");
 
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
@@ -94,9 +98,7 @@ export default function Classic() {
 
           if (jsonRes.win === true) {
             setArrayIndex(6);
-            /*
-            You win component
-            */
+            setGameStatus("victory");
 
             return;
           }
@@ -109,11 +111,24 @@ export default function Classic() {
 
           setArrayIndex(arrayIndexCopy)
           setLetterIndex(letterIndexCopy);
+
+          if (arrayIndexCopy >= 6){
+            setGameStatus("lost");
+          }
         }
       } catch (error) {
         console.log(error);
       }
     }
+  }
+
+  function restartGame(){
+    setWords(structuredClone(wordsArr));
+    setLetter('');
+    setArrayIndex(0);
+    setLetterIndex(0);
+    setKeyboardVals(keyboardArr);
+    setGameStatus("running");
   }
 
   useEffect(() => {
@@ -149,18 +164,22 @@ export default function Classic() {
     <div className='h-screen flex flex-col justify-between gap-1'>
       <Header pageType={'classic'}/>
       <main className='h-full flex flex-col'>
-        <div className='flex-[2] flex justify-center items-center'>
+        <div className='flex-[2] flex justify-center items-center md:p-1 lg:p-2 2xl:p-4'>
           <WordsGrid
             grid = {grid}
             words = {words}
           />
         </div>
-        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-4 md:pb-12">
+        <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-2 md:pb-4 lg:pb-8 2xl:pb-12">
           <Keyboard
             keyboardVals = {keyboardVals}
             keyClick = {keyClick}
           />
         </div>
+        {gameStatus !== "running" && <GameOver 
+            restartGame = {restartGame}
+            gameStatus = {gameStatus}
+          />}
       </main>
     </div>
   );
