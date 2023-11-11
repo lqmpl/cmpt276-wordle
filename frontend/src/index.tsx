@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Classic from './pages/Classic';
 import Timed from './pages/Timed';
+import GlobalStateProvider from './globalState';
 
 import {
   createBrowserRouter,
@@ -15,7 +16,7 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Classic />,
   },
   {
     path: "/sign-up",
@@ -24,10 +25,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/classic",
-    element: <Classic />,
   },
   {
     path: "/timed",
@@ -40,7 +37,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <>
+      <GlobalStateProvider>
         <RouterProvider router={router} />
+      </GlobalStateProvider>
     </>
 );
 
