@@ -171,7 +171,7 @@ export default function Timed() {
 
   return (
     <div className='h-screen flex flex-col justify-between'>
-      <Header />
+      <Header pageType={'timed'} />
       <main className='h-full flex flex-col'>
         <div className='flex justify-center items-center'>
           <Timer 
