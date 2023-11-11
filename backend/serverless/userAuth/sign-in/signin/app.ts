@@ -58,15 +58,15 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             await userSessionsCollection.insertOne({
                 _id: id, 
                 login_time: new Date(),
-                username: username
-            });
-
+                username: username 
+            }); 
+            
             return {
                 statusCode: 200,
                 body: JSON.stringify({message: 'logged in'}),
                 headers: {
                     "Access-Control-Allow-Headers" : "Content-Type",
-                    "Access-Control-Allow-Origin": "https://127.0.0.1:3001",
+                    "Access-Control-Allow-Origin": "https://cmpt276-wordle.vercel.app",
                     "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
                     "Access-Control-Allow-Credentials": "true",
                     "Set-Cookie": `SESSION_ID=${id}; SameSite=None; Secure; Max-Age=3600; Path=/`, 
@@ -85,7 +85,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             }),
             headers: {
                 "Access-Control-Allow-Headers" : "Content-Type",
-                "Access-Control-Allow-Origin": "https://127.0.0.1:3001",
+                "Access-Control-Allow-Origin": "https://cmpt276-wordle.vercel.app",
                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
                 "Access-Control-Allow-Credentials": "true",
                 "Content-Type": "text/plain" 
