@@ -81,7 +81,7 @@ Code modified from https://github.com/Rinasham/sidebar-TypeScript-React/tree/mai
     color: green;
   }
   
-  .user {
+  .user-border {
     margin-top: auto;
     border-top: 2px solid lightgrey;
     padding-top: 15px;

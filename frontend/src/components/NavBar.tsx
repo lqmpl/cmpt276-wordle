@@ -16,19 +16,16 @@ export const NavBar = ({ pageWrapId, outerContainerId }: navBarProps) => {
       <a className="menu-item" href="/">
         Home
       </a>
-      <a className="menu-item" href="/">
+      <a className="menu-item" href="../pages/Classic.tsx">
         Classic Mode
       </a>
-      <a className="menu-item" href="/">
+      <a className="menu-item" href="../pages/Timed.tsx">
         Timed Mode
       </a>
-      <a className="menu-item user user-section" href="/">
-        User
-      </a>
-      <a className="menu-item user-section" href="/">
+      <a className="menu-item user-border user-section" href="../pages/Login.tsx">
         Log In
       </a>
-      <a className="menu-item user-section" href="/">
+      <a className="menu-item user-section" href="../pages/Signup.tsx">
         Sign Up
       </a>
     </Menu>
