@@ -1,7 +1,9 @@
+import { NavBar } from "./components/NavBar"
 
 export default function App() {
   return (
     <>
+      <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
       <h3>HOMEPAGE - WIP</h3>
       <ul className='text-blue-500'>
         <li><a href={'/pages/Signup.tsx'}>Signup</a></li>
@@ -11,4 +13,3 @@ export default function App() {
       </ul>
     </>
 )}
-

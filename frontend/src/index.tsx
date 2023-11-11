@@ -43,4 +43,3 @@ root.render(
         <RouterProvider router={router} />
     </>
 );
-
