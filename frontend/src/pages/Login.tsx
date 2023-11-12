@@ -7,7 +7,7 @@ export default function Login(){
             <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
             <Header />
             <div className='max-w-4xl min-w-fit m-auto'>
-                <div className={'min-h-fit max-h-60 m-24 py-24 px-10 border-2 border-gray-300 rounded h-full flex flex-auto flex-col justify-center align-center font-sans'}>
+                <div className={'h-fit m-24 py-24 px-10 border-2 border-gray-300 rounded h-full flex flex-auto flex-col justify-center align-center font-sans'}>
                     <h1 className={'text-center text-4xl font-bold'} >Log in!</h1> <br></br><br></br><br></br><br></br>
                     <label className={'text-lg py-0.5'}>Username</label>
                     <input className={'h-8 border rounded border-gray-500'}type="text" id="signupUsername"/> <br></br>
