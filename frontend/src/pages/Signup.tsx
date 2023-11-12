@@ -13,7 +13,7 @@ export default function Signup(){
 
     async function signUpRequest(){
         try {
-            const res = await fetch('http://127.0.0.1:3000/signup', {
+            const res = await fetch('https://30vs5cu8mb.execute-api.us-east-1.amazonaws.com/Prod/signup', {
                 method: "POST",
                 body: JSON.stringify({
                     _id: username,

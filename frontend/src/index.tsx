@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Classic from './pages/Classic';
 import Timed from './pages/Timed';
+import Stats from './pages/Stats';
 import GlobalStateProvider from './globalState';
 
 import {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: "/timed",
     element: <Timed />,
   },
+  {
+    path: "/stats",
+    element: <Stats />
+  }
 ]);
 
 const root = ReactDOM.createRoot(

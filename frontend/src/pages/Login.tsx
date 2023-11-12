@@ -12,7 +12,7 @@ export default function Login() {
 
     async function sendLoginRequest(){
         try {
-            const res = await fetch('http://127.0.0.1:3000/signin', {
+            const res = await fetch('https://d4a7flmb7d.execute-api.us-east-1.amazonaws.com/Prod/signin', {
                 method: "POST",
                 body: JSON.stringify({_id: username, password: password}),
                 credentials: "include"
