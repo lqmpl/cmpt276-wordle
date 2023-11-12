@@ -163,7 +163,10 @@ export default function Classic() {
 
   return (
     <div className='h-screen flex flex-col justify-between gap-1'>
+      
+        
       <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        
       <Header pageType={'classic'}/>
 
       <main className='h-full flex flex-col'>
