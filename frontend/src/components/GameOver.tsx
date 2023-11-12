@@ -16,13 +16,13 @@ export default function GameOver({ restartGame, gameStatus, score }:GOProps){
                     gameStatus==="victory" ? "You won!" : "You ran out of guesses!"
                     : "Game over!"
                 }</li>
-            {score && 
+            {(score || score === 0) && 
             <li className="flex flex-col items-center">
                 <p>Your score was: </p>
                 <p className="font-semibold">{score}</p>
             </li>
             }
-            {score && 
+            {(score || score === 0) && 
             <li className="flex flex-col items-center">
                 <p>Top Score: </p>
                 <p className="font-semibold">{score}</p>
