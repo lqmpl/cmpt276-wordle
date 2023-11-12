@@ -4,7 +4,7 @@ version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "create-account-serverless-v2"
+stack_name = "signin-wordle"
 
 [default.build.parameters]
 cached = true
@@ -17,6 +17,9 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
+s3_prefix = "signin-wordle"
+region = "us-east-1"
+image_repositories = []
 
 [default.package.parameters]
 resolve_s3 = true

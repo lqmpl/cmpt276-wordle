@@ -41,6 +41,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
 
         let SESSION_ID; 
 
+        console.log(event.headers.Cookie); 
+
         if (event.headers && event.headers.Cookie){
             let arr = event.headers.Cookie.split('=');
             if (arr.length !== 2 || arr[0] !== 'SESSION_ID') throw new Error('bad auth');  
