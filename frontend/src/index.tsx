@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Classic from './pages/Classic';
 import Timed from './pages/Timed';
 import Stats from './pages/Stats';
+import HowToPlay from './pages/HowToPlay';
 import GlobalStateProvider from './globalState';
 
 import {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/stats",
     element: <Stats />
+  },
+  {
+    path: "/howtoplay",
+    element: <HowToPlay />
   }
 ]);
 
