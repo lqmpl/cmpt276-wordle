@@ -1,5 +1,5 @@
 # Moredle  
-## cmpt276-wordle.vercel.app  
+## [cmpt276-wordle.vercel.app](cmpt276-wordle.vercel.app)  
 
 CMPT 276 D200 - Fall 2023  
 
@@ -17,7 +17,7 @@ Deployment: Vercel
 3. run "git install" to download required modules  
 4. "npm run start" to run server and open in browser  
 
-### Team Members:
+### Team Members:  
 Sam (leader)  
 Grace  
 Kaiheng  
@@ -25,5 +25,5 @@ Jessie
 Joseph  
 
 
-### Original Game
-https://www.nytimes.com/games/wordle/index.html  
+### Original Game  
+[https://www.nytimes.com/games/wordle/index.html](https://www.nytimes.com/games/wordle/index.html)

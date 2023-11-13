@@ -102,7 +102,7 @@ export default function Classic() {
           setAnimate({i:arrayIndex, type:"blink"});
           setTimeout(() => setAnimate({i:-1, type:null}), 300);
 
-          setArrayIndex(arrayIndexCopy)
+          setArrayIndex(arrayIndexCopy);
           setLetterIndex(0);
 
           setWords(wordsCopy);
