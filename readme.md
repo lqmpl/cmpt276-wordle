@@ -1,4 +1,6 @@
-## Moredle  
+# Moredle  
+## cmpt276-wordle.vercel.app  
+
 CMPT 276 D200 - Fall 2023  
 
 A recreation of the nytimes word game Wordle in react, with the addition of stats saving
