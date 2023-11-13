@@ -11,26 +11,26 @@ export default function HowToPlay(){
 
     const greenExample:cellValueInterface[] = [
         {letter:"A", value:2},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
+        {letter:"P", value:0},
+        {letter:"P", value:0},
+        {letter:"L", value:0},
+        {letter:"E", value:0},
     ]
 
     const yellowExample:cellValueInterface[] = [
-        {letter:"A", value:1},
+        {letter:"F", value:0},
         {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
+        {letter:"I", value:0},
+        {letter:"R", value:1},
+        {letter:"Y", value:0},
     ]
 
     const dgreyExample:cellValueInterface[] = [
-        {letter:"A", value:3},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
-        {letter:"A", value:0},
+        {letter:"B", value:0},
+        {letter:"L", value:3},
+        {letter:"U", value:0},
+        {letter:"E", value:0},
+        {letter:"S", value:0},
     ]
 
     return (
@@ -45,15 +45,15 @@ export default function HowToPlay(){
             className="w-[90vw] md:w-[70vw] xl:w-[40vw] text-center p-1 xl:p-3 text-lg md:text-xl xl:text-2xl font-semibold bg-greenlight">
                 Classic
             </h1>
-            <div className={`${open === "classic" ? "max-h-[60vh] " : "max-h-0"}
-            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll flex flex-col gap-1 md:gap-2 xl:gap-4`}>
+            <div className={`${open === "classic" ? "max-h-[60vh] lg:max-h-[80vh]" : "max-h-0"}
+            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll lg:overflow-hidden w-[90vw] md:w-[70vw] xl:w-[40vw] flex flex-col items-center gap-1 md:gap-2 xl:gap-4`}>
                 <h3 className="text-center font-semibold">The objective of the game is to guess an unknown 5-letter word.</h3>
-                <ul className="flex flex-col items-center text-center mx-3 pb-3">
+                <ul className="flex flex-col items-center text-center mx-3 pb-2">
                     <li>• Each guess must be a five-letter word</li>
                     <li>• You have 6 guesses in total</li>
                     <li>• After each guess, the colour of the tiles change</li>
                 </ul>
-                <ul className="flex flex-col gap-2 lg:gap-6 mx-3">
+                <ul className="flex flex-col gap-2 lg:gap-6 mx-3 pb-2">
                     <li>
                     <div className="w-[50vh] grid grid-cols-5 gap-1">
                         {greenExample.map((val, index) => (
@@ -76,7 +76,7 @@ export default function HowToPlay(){
                         />
                     ))}
                     </div>
-                    <p>A is in the word, but not in the correct spot.</p>
+                    <p>R is in the word, but not in the correct spot.</p>
                     </li>
                     <li>
                     <div className="w-[50vh] grid grid-cols-5 gap-1">
@@ -88,7 +88,7 @@ export default function HowToPlay(){
                         />
                     ))}
                     </div>
-                    <p>A is not in the word.</p>
+                    <p>L is not in the word.</p>
                     </li>
                 </ul>
             </div>
@@ -98,7 +98,7 @@ export default function HowToPlay(){
                 Timed
             </h1>
             <div className={`${open === "timed" ? "max-h-[60vh]" : "max-h-0"}
-            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll flex flex-col gap-1 md:gap-2 xl:gap-4`}>
+            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll lg:overflow-hidden w-[90vw] md:w-[70vw] xl:w-[40vw] flex flex-col gap-1 md:gap-2 xl:gap-4`}>
                 <h3 className="text-center font-semibold">The goal of this gamemode is to score points by guessing as many words as possible in 5 minutes</h3>
                 <ul className="flex flex-col items-center text-center mx-3">
                     <li>• Presumably some scoring instructions</li>
