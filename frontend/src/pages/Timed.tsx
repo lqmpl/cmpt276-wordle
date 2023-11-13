@@ -28,6 +28,8 @@ export default function Timed() {
 
   const [score, setScore] = useState<number>(0);
 
+  const [animate, setAnimate] = useState<{i:number,type:string|null}>({i: 0, type: null});
+
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
   }
@@ -62,8 +64,8 @@ export default function Timed() {
         const jsonRes: wordCheckResponseInterface = await response.json();
 
         if (jsonRes.found) {
-          let wordsCopy = [...words];
-          let newKVals = new Map(keyboardVals);
+          let wordsCopy = structuredClone(words);
+          let kValsCopy = new Map(keyboardVals);
 
           for (let i in jsonRes.optionsArray) {
 
@@ -80,32 +82,37 @@ export default function Timed() {
             // if the letter val is already 2 (confirmed) or 3 (not present), colour shouldn't change
             //  otherwise, change its corresponding key in the keyboard to match cur value
             if (keyboardVals.get(curLetter)! < 2){
-              newKVals.set(curLetter, jsonRes.optionsArray[i]);
+              kValsCopy.set(curLetter, jsonRes.optionsArray[i]);
             }
           }
 
-          setWords(wordsCopy);
-          setKeyboardVals(newKVals);
+          let arrayIndexCopy:number = arrayIndex;
+          arrayIndexCopy += 1;
 
+          setAnimate({i:arrayIndex, type:"blink"});
+          setTimeout(() => setAnimate({i:-1, type:null}), 300);
+
+          setArrayIndex(arrayIndexCopy)
+          setLetterIndex(0);
+          
+          setWords(wordsCopy);
+          setKeyboardVals(kValsCopy);
+
+          // win
           if (jsonRes.win === true) {
             setArrayIndex(6);
             setScore(score + (6 - arrayIndex));
 
             return;
           }
-
-          let arrayIndexCopy = arrayIndex;
-          arrayIndexCopy += 1;
-
-          let letterIndexCopy = letterIndex;
-          letterIndexCopy = 0;
-
-          setArrayIndex(arrayIndexCopy)
-          setLetterIndex(letterIndexCopy);
         }
       } catch (error) {
         console.log(error);
       }
+    } else {
+      // incorrect input (less than 5 chars)
+      setAnimate({i:arrayIndex, type:"shake"});
+      setTimeout(() => setAnimate({i:-1, type:null}), 300);
     }
   }
 
@@ -201,6 +208,7 @@ export default function Timed() {
             <WordsGrid
               grid = {grid}
               words = {words}
+              animate = {animate}
               smaller = {true}
             />
           </div>

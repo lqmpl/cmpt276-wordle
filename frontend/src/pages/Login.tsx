@@ -4,7 +4,6 @@ import { NavBar } from "../components/NavBar"
 
 
 
-
 export default function Login() {
     const navigate = useNavigate()
 
@@ -13,7 +12,7 @@ export default function Login() {
 
     async function sendLoginRequest(){
         try {
-            const res = await fetch('https://0indrq4mb3.execute-api.us-east-1.amazonaws.com/Prod/signin', {
+            const res = await fetch('https://d4a7flmb7d.execute-api.us-east-1.amazonaws.com/Prod/signin', {
                 method: "POST",
                 body: JSON.stringify({_id: username, password: password}),
                 credentials: "include"

@@ -26,6 +26,8 @@ export default function Classic() {
   // states are "running", "victory", & "lost"
   const [gameStatus, setGameStatus] = useState<string>("running");
 
+  const [animate, setAnimate] = useState<{i:number,type:string|null}>({i: 0, type: null});
+
   function onKeyDown(event: KeyboardEvent) {
     setLetter(event.key);
   }
@@ -68,55 +70,52 @@ export default function Classic() {
       let concatedStr = concatStringArr(words[arrayIndex]);
 
       try {
-        const response = await fetch(`https://0indrq4mb3.execute-api.us-east-1.amazonaws.com/Prod/computescore`, {
-          method: "POST", 
-          body: JSON.stringify({word: concatedStr}), 
-          credentials: "include" 
-        });
+        const response = await fetch(`https://2ev2xiv117.execute-api.us-east-1.amazonaws.com/Prod/api/checkWord?word=${concatedStr}`);
         const jsonRes: wordCheckResponseInterface = await response.json();
 
         if (jsonRes.found) {
-          let wordsCopy = [...words];
-          let newKVals = new Map(keyboardVals);
+          let wordsCopy = structuredClone(words);
+          let kValsCopy = new Map(keyboardVals);
 
           for (let i in jsonRes.optionsArray) {
 
-            // if the letter's been checked & it's not in work, make val 3 (dark grey)
+            // if the letter's been checked & it's not in word, make val 3 (dark grey)
             // could probably fix this in backend - couldn't get to work
             if (jsonRes.optionsArray[i] === 0){
               jsonRes.optionsArray[i] = 3;
             }
 
             wordsCopy[arrayIndex][i].value = jsonRes.optionsArray[i];
-          
+            
             const curLetter = wordsCopy[arrayIndex][i].letter;
 
             // if the letter val is already 2 (confirmed) or 3 (not present), colour shouldn't change
             //  otherwise, change its corresponding key in the keyboard to match cur value
             if (keyboardVals.get(curLetter)! < 2){
-              newKVals.set(curLetter, jsonRes.optionsArray[i]);
+              kValsCopy.set(curLetter, jsonRes.optionsArray[i]);
             }
           }
 
-          setWords(wordsCopy);
-          setKeyboardVals(newKVals);
+          let arrayIndexCopy:number = arrayIndex;
+          arrayIndexCopy += 1;
 
+          setAnimate({i:arrayIndex, type:"blink"});
+          setTimeout(() => setAnimate({i:-1, type:null}), 300);
+
+          setArrayIndex(arrayIndexCopy);
+          setLetterIndex(0);
+
+          setWords(wordsCopy);
+          setKeyboardVals(kValsCopy);
+
+          // win
           if (jsonRes.win === true) {
             setArrayIndex(6);
             setGameStatus("victory");
 
             return;
           }
-
-          let arrayIndexCopy = arrayIndex;
-          arrayIndexCopy += 1;
-
-          let letterIndexCopy = letterIndex;
-          letterIndexCopy = 0;
-
-          setArrayIndex(arrayIndexCopy)
-          setLetterIndex(letterIndexCopy);
-
+          // lost
           if (arrayIndexCopy >= 6){
             setGameStatus("lost");
           }
@@ -124,6 +123,10 @@ export default function Classic() {
       } catch (error) {
         console.log(error);
       }
+    } else {
+      // incorrect input (less than 5 chars)
+      setAnimate({i:arrayIndex, type:"shake"});
+      setTimeout(() => setAnimate({i:-1, type:null}), 300);
     }
   }
 
@@ -178,6 +181,7 @@ export default function Classic() {
           <WordsGrid
             grid = {grid}
             words = {words}
+            animate = {animate}
           />
         </div>
         <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-2 md:pb-4 lg:pb-8 2xl:pb-12">
