@@ -23,7 +23,7 @@ export default function Stats() {
     useEffect(() => {
         async function sendRequest() {
             try {
-                const res = await fetch("https://0indrq4mb3.execute-api.us-east-1.amazonaws.com/Prod/getStats", {
+                const res = await fetch("https://8mcqocvg10.execute-api.us-east-1.amazonaws.com/Prod/getStats", {
                     method: "POST",
                     credentials: "include",
                 })
