@@ -9,9 +9,9 @@ interface propType {
 export default function Header(props: propType) {
     return (
         <>
-            <div className="w-full h-20 flex justify-around gap-10 border-b-2 border-black">
+            <div className="w-full flex justify-around gap-10 border-b-2 border-black">
                 <div className="w-1/4"></div>
-                <div className="w-1/4 text-center flex flex-col justify-center text-4xl font-bold">Wordle</div>
+                <div className="w-1/4 text-center flex flex-col justify-center text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3 font-bold">Wordle</div>
 
 
                 <div className="w-1/4 flex items-center gap-4">

@@ -42,18 +42,18 @@ export default function HowToPlay(){
 
         <main className='h-full flex flex-col items-center gap-2 p-2'>
             <h1 onClick={() => open==="classic" ? setOpen("none") : setOpen("classic")}
-            className="w-[50vw] text-center p-3 text-2xl font-semibold bg-greenlight">
+            className="w-[90vw] md:w-[70vw] xl:w-[40vw] text-center p-1 xl:p-3 text-lg md:text-xl xl:text-2xl font-semibold bg-greenlight">
                 Classic
             </h1>
-            <div className={`${open === "classic" ? "h-[50vh]" : "h-0"}
-            overflow-hidden transition-all delay-150 duration-500`}>
-                <h3 className="text-center">The objective of the game is to guess an unknown 5-letter word.</h3>
-                <ul className="flex flex-col items-center">
-                    <li>Each guess must be a five-letter word</li>
-                    <li>You have 6 guesses in total</li>
-                    <li>After each guess, the colour of the tiles change</li>
+            <div className={`${open === "classic" ? "max-h-[60vh] " : "max-h-0"}
+            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll flex flex-col gap-1 md:gap-2 xl:gap-4`}>
+                <h3 className="text-center font-semibold">The objective of the game is to guess an unknown 5-letter word.</h3>
+                <ul className="flex flex-col items-center text-center mx-3 pb-3">
+                    <li>• Each guess must be a five-letter word</li>
+                    <li>• You have 6 guesses in total</li>
+                    <li>• After each guess, the colour of the tiles change</li>
                 </ul>
-                <ul className="flex flex-col items-center">
+                <ul className="flex flex-col gap-2 lg:gap-6 mx-3">
                     <li>
                     <div className="w-[50vh] grid grid-cols-5 gap-1">
                         {greenExample.map((val, index) => (
@@ -94,15 +94,15 @@ export default function HowToPlay(){
             </div>
 
             <h1 onClick={() => open==="timed" ? setOpen("none") : setOpen("timed")}
-            className="w-[50vw] text-center p-3 text-2xl font-semibold bg-yellow-400">
+            className="w-[90vw] md:w-[70vw] xl:w-[40vw] text-center p-1 xl:p-3 text-lg md:text-xl xl:text-2xl font-semibold bg-yellow-400">
                 Timed
             </h1>
-            <div className={`${open === "timed" ? "h-[30vh]" : "h-0"}
-            overflow-hidden transition-all delay-150 duration-500`}>
-                <h3>The goal is to score points by guess as many words as possible in 5 minutes</h3>
-                <ul className="flex flex-col items-center">
-                    <li>some scoring details presumably</li>
-                    <li>to add when implemented</li>
+            <div className={`${open === "timed" ? "max-h-[60vh]" : "max-h-0"}
+            transition-[max-height 0.15s ease-out] duration-500 overflow-scroll flex flex-col gap-1 md:gap-2 xl:gap-4`}>
+                <h3 className="text-center font-semibold">The goal of this gamemode is to score points by guessing as many words as possible in 5 minutes</h3>
+                <ul className="flex flex-col items-center text-center mx-3">
+                    <li>• Presumably some scoring instructions</li>
+                    <li>• To be updated when scoring complete</li>
                 </ul>
             </div>
         </main>
