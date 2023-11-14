@@ -99,10 +99,10 @@ export default function HowToPlay(){
             </h1>
             <div className={`${open === "timed" ? "max-h-[60vh]" : "max-h-0"}
             transition-[max-height 0.15s ease-out] duration-500 overflow-scroll lg:overflow-hidden w-[90vw] md:w-[70vw] xl:w-[40vw] flex flex-col gap-1 md:gap-2 xl:gap-4`}>
-                <h3 className="text-center font-semibold">The goal of this gamemode is to score points by guessing as many words as possible in 5 minutes</h3>
+                <h3 className="text-center font-semibold">The goal of this gamemode is to score points by guessing as many words as possible in 2 minutes</h3>
                 <ul className="flex flex-col items-center text-center mx-3">
-                    <li>• Presumably some scoring instructions</li>
-                    <li>• To be updated when scoring complete</li>
+                    <li>• You get 6 points if you guess it correctly on the first try, 5 on the second, and so on.</li>
+                    <li>• After you guess the word correctly or fail all 6 attempts, you automatically receive a new word to guess.</li>
                 </ul>
             </div>
         </main>

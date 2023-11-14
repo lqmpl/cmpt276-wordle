@@ -1,7 +1,7 @@
 /*
 Code modified from https://github.com/Rinasham/sidebar-TypeScript-React/tree/main/
 */
-import { useContext } from "react"
+import { useContext } from "react";
 import { slide as Menu } from "react-burger-menu";
 import { Link } from "react-router-dom";
 import { GlobalContext, GlobalStateType } from "../globalState";

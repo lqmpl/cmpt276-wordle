@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+import { GlobalContext, GlobalStateType } from "../globalState"
 
 import { wordCheckResponseInterface, cellValueInterface, wordsArr, keyboardArr } from '../logic/baseWordle';
 import { isLetter, concatStringArr } from '../logic/stringFunctions';
+import { wordBank } from '../logic/timedWordBank';
 
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
@@ -27,6 +29,7 @@ export default function Timed() {
   const [secs, setSecs] = useState<number>(0);
 
   const [score, setScore] = useState<number>(0);
+  const [topScore, setTopScore] = useState<number>(0);
 
   const [animate, setAnimate] = useState<{ i: number, type: string | null }>({ i: 0, type: null });
 
@@ -106,9 +109,18 @@ export default function Timed() {
           // win
           if (jsonRes.win === true) {
             setArrayIndex(6);
-            setScore(score + (6 - arrayIndex));
-
+            
+            const newScore = score + (6 - arrayIndex);
+            setScore(newScore);
+            if (newScore > topScore){
+              setTopScore(newScore);
+            }
+            resetWord();
             return;
+          }
+          // lose
+          if (arrayIndexCopy >= 6){
+            resetWord();
           }
         }
       } catch (error) {
@@ -123,6 +135,7 @@ export default function Timed() {
 
   function restartGame() {
     resetWord();
+    setScore(0);
     setGameStatus("ready");
   }
 
@@ -133,8 +146,31 @@ export default function Timed() {
     setArrayIndex(0);
     setLetterIndex(0);
     setKeyboardVals(keyboardArr);
-    setScore(0);
+
+    const newword:string = wordBank[Math.floor(Math.random()*wordBank.length)];
+    //console.log(newword);
+    sendChangeWordRequest(newword);
   }
+
+  // changes the correct word
+  const [response, setResponse] = useState<{ visible: Boolean, success: Boolean, message: string }>();
+  async function sendChangeWordRequest(newword:string) {
+    try {
+        const res = await fetch("https://0indrq4mb3.execute-api.us-east-1.amazonaws.com/Prod/changeAnswer", {
+            method: "Post",
+            body: JSON.stringify({ globalWord: newword }),
+            credentials: "include"
+        })
+
+        const jsonRes = await res.json();
+
+        if (res.ok) {
+            setResponse({ visible: true, success: true, message: jsonRes.message })
+        }
+    } catch (error) {
+        setResponse({ visible: true, success: false, message: 'error' });
+    }
+}
 
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown)
@@ -175,7 +211,8 @@ export default function Timed() {
 
   useEffect(() => {
     if (gameStatus === "ready") {
-      setSecs(15);
+      setSecs(120);
+      resetWord();
     }
   }, [gameStatus]);
 
@@ -205,6 +242,7 @@ export default function Timed() {
           />
           <ScoreDisplay
             score={score}
+            topScore={topScore}
           />
         </div>
         <div className='flex-[2] flex justify-center items-center md:p-1 lg:p-2 2xl:p-4'>
@@ -216,6 +254,20 @@ export default function Timed() {
               animate={animate}
               smaller={true}
             />
+            {/* {<button onClick={
+              () => {
+                setArrayIndex(6);
+                const newScore = score + (6 - arrayIndex);
+              setScore(newScore);
+              if (newScore > topScore){
+                setTopScore(newScore);
+              }
+              resetWord();
+              }
+            } className='p-1 rounded bg-green-400'>Correct answer</button>
+            <button onClick={
+              () => {resetWord()}
+            } className='p-1 rounded bg-red-400'>Wrong answer</button>} */}
           </div>
           <div className="flex-1 hidden md:flex flex-col items-center md:gap-4 lg:gap-8 2xl:gap-14 relative right-[5vw]">
             <Timer
@@ -223,7 +275,9 @@ export default function Timed() {
             />
             <ScoreDisplay
               score={score}
+              topScore={topScore}
             />
+            <button className='p-2 rounded bg-red-400 font-semibold' onClick={()=>{setSecs(0)}}>End Game</button>
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-1 sm:gap-2 p-2 pb-2 md:pb-4 lg:pb-8 2xl:pb-12">
@@ -235,6 +289,7 @@ export default function Timed() {
         {gameStatus === "over" && <GameOver
           restartGame={restartGame}
           score={score}
+          topScore={topScore}
         />}
       </main>
     </div>

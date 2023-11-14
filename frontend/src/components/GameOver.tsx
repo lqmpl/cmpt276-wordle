@@ -2,9 +2,10 @@ interface GOProps {
     restartGame: () => void;
     gameStatus?:string;
     score?:number;
+    topScore?:number;
 }
 
-export default function GameOver({ restartGame, gameStatus, score }:GOProps){
+export default function GameOver({ restartGame, gameStatus, score, topScore }:GOProps){
 
     return (
         <>
@@ -25,7 +26,7 @@ export default function GameOver({ restartGame, gameStatus, score }:GOProps){
             {(score || score === 0) && 
             <li className="flex flex-col items-center">
                 <p>Top Score: </p>
-                <p className="font-semibold">{score}</p>
+                <p className="font-semibold">{topScore}</p>
             </li>
             }
             <button type="button" onClick={restartGame} className="bg-gray-300 border border-gray-500 rounded p-1">Restart</button>
