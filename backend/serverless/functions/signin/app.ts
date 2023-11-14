@@ -60,10 +60,17 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                 login_time: new Date(),
                 username: username 
             }); 
+
+            let adminBool = false; 
+
+            username==='admin' && password === 'admin' ? adminBool = true: adminBool = false; 
             
             return {
                 statusCode: 200,
-                body: JSON.stringify({message: 'logged in'}),
+                body: JSON.stringify({
+                    message: 'logged in',
+                    admin: adminBool
+                }),
                 headers: {
                     "Access-Control-Allow-Headers" : "Content-Type",
                     "Access-Control-Allow-Origin": "https://cmpt276-wordle.vercel.app",

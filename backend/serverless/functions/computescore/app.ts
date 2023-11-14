@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { MongoClient, ServerApiVersion } from "mongodb";
+import { VALID_GUESSES } from "./validGuesses"
 
 const uri = process.env.mongo_uri as string;  
 
@@ -29,16 +30,27 @@ interface statsInterface {
 }
 
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    let answer = ''; 
     try {
         await client.connect();
         await client.db("admin").command({ ping: 1 });
+        const database = client.db("wordle-cmpt276"); 
+
 
         if (event.body === null) throw new Error('event null'); 
         const body: BodyInterface = JSON.parse(event.body);
         if (!body.word) throw new Error('bad body');   
 
+        let length = VALID_GUESSES.length; 
+        answer = VALID_GUESSES[Math.floor(Math.random() * length) + 1]
+
+        const metadata = database.collection<{_id: string, globalWord: string}>("metadata");
+        const root = await metadata.findOne({_id: "root"});
+        
+        if (!root) throw new Error("could not retrieve answer"); 
+
         const word: string = body.word.toUpperCase(); 
-        const optionsArray: number[] = computeScore('APPLE', word); 
+        const optionsArray: number[] = computeScore(root.globalWord, word); 
 
         let win = true;
         for (let i = 0; i < optionsArray.length; i++) {
@@ -48,7 +60,6 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         }
 
         if (event.headers && event.headers.Cookie){
-            const database = client.db("wordle-cmpt276"); 
             const userSessionsCollection = database.collection<sessionInterface>("userSessions");
 
             let CookieSubstrings = event.headers.Cookie.split('='); 
@@ -67,7 +78,6 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                     if (userStatsDocument){
 
                         let newWordsGuessed = userStatsDocument.words_guessed + 1; 
-                        console.log(newWordsGuessed); 
 
                         userStatsCollection.updateOne({_id: username}, {$set: {words_guessed: newWordsGuessed}})
                     }
@@ -82,7 +92,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                 value: optionsArray,
                 found: true,
                 optionsArray: optionsArray,
-                win: win
+                win: win, 
+                answer: answer
             }),
             headers: {
                 "Access-Control-Allow-Headers" : "Content-Type",
@@ -100,7 +111,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                 value: -1,
                 found: false,
                 optionsArray: [], 
-                win: false
+                win: false, 
+                answer: answer
             }),
             headers: {
                 "Access-Control-Allow-Headers" : "Content-Type",
