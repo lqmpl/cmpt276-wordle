@@ -19,6 +19,7 @@ export const NavBar = ({ pageWrapId, outerContainerId }: navBarProps) => {
 
   return (
       <Menu>
+        <Link className="text-black text-xl font-bold hover:text-green-600 mb-8 transition-all" to={"/"}>Home</Link>
         <Link className="text-black text-xl font-bold hover:text-green-600 mb-8 transition-all" to={"/howtoplay"}>How To Play</Link>
         <Link className="text-black text-xl font-bold hover:text-green-600 mb-8 transition-all" to={"/"}>Classic</Link>
         <Link className="text-black text-xl font-bold hover:text-green-600 mb-8 transition-all" to={"/timed"}>Timed Mode</Link>

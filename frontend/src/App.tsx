@@ -24,16 +24,16 @@ export default function App() {
             <div className='rounded-none border-4 border-black h-8 w-8 bg-[#00CC00] float-left'></div> <br /> <br />
           </div>
         </div>
-        <div className='m-auto p-12 max-w-3xl'>
-          <div className='font-semibold mb-2 text-gray-500'>
-            <h1 className='float-left'>SINGLE PLAYER</h1>
-            <h1 className='float-right mr-20'>MULTIPLAYER</h1> <br />
-          </div>
-          <a href="/pages/Classic.tsx" className='font-bold h-14 w-48 p-3 border rounded-2xl border bg-gray-300 float-right text-center float-left'>Classic Wordle</a> 
-          <a href="/pages/Timed.tsx" className='font-bold h-14 w-48 p-3 border rounded-2xl border bg-gray-300 float-right text-center'>Race Against Time</a> <br /><br /><br />
-          <a href="/pages/Campaign.tsx" className='font-bold h-14 w-48 p-3 border rounded-2xl border bg-gray-300 text-center float-left'>Campaign Mode</a> 
-          <a href="/pages/GuessMyWord.tsx" className='font-bold h-14 w-48 p-3 border rounded-2xl border bg-gray-300 float-right text-center'>Guess My Word</a> 
-        </div>
       </div> 
+
+      <div className="w-screen mt-4">
+        <div className="w-1/2 mx-auto text-center text-xl font-bold">
+          <div className="mb-6">SINGLE PLAYER</div>
+          <div className="w-full flex justify-around gap-4">
+            <Link to={"/classic"} className="w-1/3 bg-slate-200 rounded p-2 hover:bg-slate-100 transition-all">Classic Wordle</Link>
+            <Link to={"/timed"} className="w-1/3 bg-slate-200 rounded p-2 hover:bg-slate-100 transition-all">Timed Wordle</Link>
+          </div>
+        </div>
+      </div>
     </>
 )}

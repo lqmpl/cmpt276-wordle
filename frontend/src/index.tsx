@@ -19,6 +19,10 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <App />
+  },
+  {
+    path: "/classic",
     element: <Classic />,
   },
   {
