@@ -1,7 +1,39 @@
-export default function Header(){
+import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { AiOutlineFieldTime } from "react-icons/ai"
+
+interface propType {
+    pageType: string
+}
+
+export default function Header(props: propType) {
     return (
-    <header className='flex justify-center align-center p-1 font-bold border-b-2 border-gray-300'>
-        <h1 className='text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3'><a href={'/'} >Wordle</a></h1>
-    </header>
+        <>
+            <div className="w-full flex justify-around gap-10 border-b-2 border-black">
+                <div className="w-1/4"></div>
+                <div className="w-1/4 text-center flex flex-col justify-center text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3 font-bold">Wordle</div>
+
+
+                <div className="w-1/4 flex items-center gap-4">
+                    <Link to={'/sign-up'} className="w-1/4 flex justify-center items-center h-1/2 bg-blue-500 text-white rounded-sm cursor-pointer">Sign up</Link>
+                    <Link to={'/login'} className="w-1/4 flex justify-center items-center h-1/2 bg-blue-500 text-white rounded-sm cursor-pointer">Login</Link>
+
+                    {
+                        props.pageType === 'classic' ?
+                            (<Link to={'/timed'} className="w-1/3 flex justify-center items-center h-1/2 bg-red-500 text-white rounded cursor-pointer gap-1">
+                                Timed mode
+                                <AiOutlineFieldTime></AiOutlineFieldTime>
+                            </Link>)
+                            :
+                            (<Link to={'/'} className="w-1/3 flex justify-center items-center h-1/2 bg-green-500 text-white rounded cursor-pointer gap-1">
+                                Classic mode
+                                <AiOutlineFieldTime></AiOutlineFieldTime>
+                            </Link>)
+                    }
+
+
+                </div>
+            </div>
+        </>
     )
 }

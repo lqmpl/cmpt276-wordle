@@ -1,4 +1,4 @@
-import { keyboard } from "@testing-library/user-event/dist/keyboard";
+//import { keyboard } from "@testing-library/user-event/dist/keyboard";
 
 interface KeyboardProps {
     keyboardVals: Map<string, number>;

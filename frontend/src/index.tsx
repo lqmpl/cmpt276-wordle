@@ -6,6 +6,10 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Classic from './pages/Classic';
 import Timed from './pages/Timed';
+import Stats from './pages/Stats';
+import HowToPlay from './pages/HowToPlay';
+import Admin from './pages/admin';
+import GlobalStateProvider from './globalState';
 
 import {
   createBrowserRouter,
@@ -15,24 +19,32 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/pages/Signup.tsx",
-    element: <Signup />,
-  },
-  {
-    path: "/pages/Login.tsx",
-    element: <Login />,
-  },
-  {
-    path: "/pages/Classic.tsx",
     element: <Classic />,
   },
   {
-    path: "/pages/Timed.tsx",
+    path: "/sign-up",
+    element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/timed",
     element: <Timed />,
   },
+  {
+    path: "/stats",
+    element: <Stats />
+  },
+  {
+    path: "/howtoplay",
+    element: <HowToPlay />
+  }, 
+  {
+    path: "/admin",
+    element: <Admin/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(
@@ -40,6 +52,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <>
+      <GlobalStateProvider>
         <RouterProvider router={router} />
+      </GlobalStateProvider>
     </>
 );

@@ -1,24 +1,68 @@
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header"
 import { NavBar } from "../components/NavBar"
 
 export default function Signup(){
+    const navigate = useNavigate()
+    
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState(''); 
+
+    const [requestState, setRequestState] = useState({status: 'ok', visible: false,  message: ''}); 
+
+    async function signUpRequest(){
+        try {
+            const res = await fetch('https://0indrq4mb3.execute-api.us-east-1.amazonaws.com/Prod/signup', {
+                method: "POST",
+                body: JSON.stringify({
+                    _id: username,
+                    password: password                        
+                }), 
+                credentials: "include"
+            });
+            const jsonRes = await res.json(); 
+
+            if (res.ok){
+                navigate("/"); 
+            }
+
+        } catch (error) {
+            console.log(error); 
+        }
+    }
+
+    useEffect(()=>{
+        if (requestState.visible === true){
+            setTimeout(()=>{
+                setRequestState({status: 'ok', visible: false, message: ''})
+            }, 3000); 
+        }
+    }, [requestState])
+
     return (
-        <> 
-            <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
-            <Header />
-            <div className='max-w-4xl min-w-fit m-auto'>
-                <div className={'h-fit m-24 py-24 px-10 border-2 border-gray-300 rounded h-full flex flex-auto flex-col justify-center align-center font-sans'}>
-                    <h1 className={'text-center text-4xl font-bold'} >Join us!</h1> <br></br><br></br><br></br><br></br>
-                    <label className={'text-lg py-0.5'}>Username</label>
-                    <input className={'h-8 border rounded border-gray-500'}type="text" id="signupUsername"/> <br></br>
-                    <label className={'text-lg py-0.5'}>Password</label>
-                    <input className={'h-8 border rounded border-gray-500'}type="text" id="signupPassword"/> <br></br>
-                    <button className={'h-10 border rounded border-black bg-black text-white'} type="button">Sign Up</button><br></br>
-                    <label className={'text-center text-[18px]'}>Already a member?    
-                        <a href="/pages/Login.tsx" className='text-blue-500'> Login!</a>
-                    </label>
+
+        <div className="w-screen h-screen">
+            <div className="w-full h-5/6 flex justify-center items-center">
+                <div className="w-96 mx-auto shadow-2xl">
+                    <div className="text-center my-2 font-bold text-xl">Wordle</div>
+                    <div className="text-center">Sign up to continue</div>
+                    <div className="w-4/5 mx-auto my-2">
+                        <input onChange={(e)=>{setUsername(e.target.value)}} value={username} type="text" className="w-full h-full border-2 border-slate-100 p-2" placeholder="Enter your username"/>
+                    </div>
+                    <div className="w-4/5 mx-auto mb-2">
+                        <input onChange={(e)=>{setPassword(e.target.value)}} value={password} type="text" className="w-full h-full border-2 border-slate-100 p-2" placeholder="Enter your password"/>
+                    </div>
+                    <div className="w-4/5 mx-auto mb-4">
+                        <div onClick={signUpRequest} className="w-full h-full bg-blue-800 text-white rounded-sm text-center p-2 cursor-pointer hover:bg-blue-500">Sign up</div>
+                    </div>
+                    <div className="w-4/5 mx-auto mb-4 flex flex-col">
+                        <Link to={'/login'} className=" text-blue-500 cursor-pointer border-b">Login</Link>
+                        <Link to={'/'} className=" text-blue-500 cursor-pointer">Maybe later</Link>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
+
