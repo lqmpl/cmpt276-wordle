@@ -38,6 +38,7 @@ export default function Login() {
     }
 
     return (
+
         <div className="w-screen h-screen">
             <div className="w-full h-5/6 flex justify-center items-center">
                 <div className="w-96 mx-auto shadow-2xl">
