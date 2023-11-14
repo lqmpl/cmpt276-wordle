@@ -5,7 +5,7 @@ export default function App() {
   return (
     <>
       <NavBar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
-      <Header></Header>
+      <Header pageType={'classic'}></Header>
       <div className='max-w-full min-w-fit min-h-fit max-h-60'>
         <div className='w-fit m-auto h-96 flex flex-col justify-center'>
           <div className=''>
