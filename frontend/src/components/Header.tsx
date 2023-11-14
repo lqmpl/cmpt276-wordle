@@ -13,7 +13,7 @@ export default function Header(props: propType) {
             <div className="w-full flex justify-around gap-10 border-b-2 border-black">
                 <div className="w-1/4"></div>
                 <div className="w-1/4 text-center flex flex-col justify-center text-xl md:text-2xl md:p-1 lg:text-3xl lg:p-3 font-bold">
-                    <a href="/">Wordle</a>
+                    <a href="/">Moredle</a>
                 </div>
 
                 <div className="w-1/4 flex items-center gap-4">
