@@ -1,5 +1,5 @@
 # Moredle  
-## [cmpt276-wordle.vercel.app](cmpt276-wordle.vercel.app)  
+## [cmpt276-wordle.vercel.app](https://cmpt276-wordle.vercel.app/)  
 
 CMPT 276 D200 - Fall 2023  
 
