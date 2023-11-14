@@ -148,7 +148,7 @@ export default function Timed() {
     setKeyboardVals(keyboardArr);
 
     const newword:string = wordBank[Math.floor(Math.random()*wordBank.length)];
-    console.log(newword);
+    //console.log(newword);
     sendChangeWordRequest(newword);
   }
 
