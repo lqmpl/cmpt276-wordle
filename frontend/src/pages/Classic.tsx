@@ -1,10 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { wordCheckResponseInterface, cellValueInterface, wordsArr, keyboardArr } from '../logic/baseWordle';
 import { isLetter, concatStringArr } from '../logic/stringFunctions';
-
-import { GlobalContext } from '../globalState';
 
 import Header from '../components/Header'
 import Keyboard from '../components/Keyboard';
@@ -76,6 +73,7 @@ export default function Classic() {
           credentials: "include" 
         });
         const jsonRes: wordCheckResponseInterface = await response.json();
+        console.log(jsonRes); 
 
         if (jsonRes.found) {
           let wordsCopy = structuredClone(words);

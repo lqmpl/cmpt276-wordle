@@ -1,10 +1,18 @@
-import { createContext, useState } from "react" 
+import { createContext, useState , Dispatch, SetStateAction} from "react" 
 
-export const GlobalContext = createContext('GlobalState');
+
+export type GlobalStateType = {
+    isAdmin: Boolean,
+    setIsAdmin: Dispatch<SetStateAction<Boolean>>
+}
+
+export const GlobalContext = createContext<GlobalStateType>({isAdmin: false, setIsAdmin: ()=>{}})
 
 export default function GlobalStateProvider({children}: any){
+    const [isAdmin, setIsAdmin] = useState<Boolean>(false); 
+
     return (
-        <GlobalContext.Provider value={'hi'}>
+        <GlobalContext.Provider value={{isAdmin, setIsAdmin}}>
             {
                 children
             }

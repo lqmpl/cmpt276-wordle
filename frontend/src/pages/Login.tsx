@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react"  
+import { useState, useEffect, useContext } from "react"  
 import { Link, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/NavBar"
 
-
+import { GlobalContext, GlobalStateType }  from '../globalState'
 
 export default function Login() {
     const navigate = useNavigate()
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const data = useContext<GlobalStateType>(GlobalContext);
+   
 
     async function sendLoginRequest(){
         try {
@@ -20,12 +23,16 @@ export default function Login() {
             const resJson = await res.json();
 
             if (res.ok){
+                if (resJson.admin) data.setIsAdmin(true); 
                 navigate('/')
             }
             else{
+                // mock
+      
                 throw new Error("bad request"); 
             }
         } catch (error) {
+            navigate('/')
             console.log(error); 
         }
     }

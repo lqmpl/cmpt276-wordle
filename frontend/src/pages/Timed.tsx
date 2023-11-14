@@ -66,6 +66,7 @@ export default function Timed() {
           credentials: "include"
         });
         const jsonRes: wordCheckResponseInterface = await response.json();
+        console.log(jsonRes); 
 
         if (jsonRes.found) {
           let wordsCopy = structuredClone(words);

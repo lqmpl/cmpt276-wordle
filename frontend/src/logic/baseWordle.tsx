@@ -3,7 +3,8 @@ export interface wordCheckResponseInterface {
     value: number,
     found: boolean,
     optionsArray: number[],
-    win: boolean
+    win: boolean,
+    answer: string
   }
   
 export interface cellValueInterface {
